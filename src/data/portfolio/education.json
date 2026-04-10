@@ -1,0 +1,16 @@
+[
+  {
+    "institution": "Vellore Institute of Technology, AP",
+    "degree": "B.Tech in Computer Science and Engineering",
+    "cgpa": "8.23/10",
+    "duration": "2022 - Present",
+    "coursework": [
+      "Data Structures",
+      "Algorithms",
+      "System Design",
+      "Machine Learning",
+      "Database Systems",
+      "Computer Networks"
+    ]
+  }
+]

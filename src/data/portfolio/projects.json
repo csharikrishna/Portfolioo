@@ -1,0 +1,140 @@
+[
+  {
+    "id": "cortexrag",
+    "title": "CortexRAG",
+    "category": "AI / Backend Systems",
+    "description": "Complexity-aware RAG engine for adaptive query handling, routing queries across difficulty tiers with sub-second latency.",
+    "longDescription": "Built a complexity-aware RAG engine for adaptive query handling, routing queries across difficulty tiers — achieving 300–400ms, 700–900ms, and 1.2–1.5s latency while reducing unnecessary compute. Designed near real-time ingestion pipelines with Weaviate and Neo4j, enabling low-latency indexing and multi-hop graph reasoning across connected documents. Implemented hybrid retrieval (vector + BM25 + RRF) with cross-encoder reranking for high-precision context generation.",
+    "techStack": [
+      "Python",
+      "Weaviate",
+      "Neo4j"
+    ],
+    "metrics": "300–400ms latency on simple queries",
+    "githubURL": "https://github.com/csharikrishna/CortexRAG",
+    "liveURL": "",
+    "featured": true,
+    "date": "2025-03",
+    "challenges": [
+      {
+        "problem": "Queries of varying complexity needed different retrieval strategies — simple lookups shouldn't invoke expensive multi-hop reasoning.",
+        "solution": "Implemented a complexity classifier that routes queries across three tiers, each with optimized retrieval depth and latency budgets."
+      },
+      {
+        "problem": "Multi-hop graph reasoning across Neo4j was too slow for real-time use.",
+        "solution": "Pre-computed traversal paths and cached subgraph embeddings, reducing graph query time by 60%."
+      }
+    ]
+  },
+  {
+    "id": "brain-tumor",
+    "title": "Brain Tumor Classification System",
+    "category": "Machine Learning / Medical Imaging",
+    "description": "Deep learning classifier for four brain tumor classes using transfer learning on 7,000+ MRI images.",
+    "longDescription": "Built a deep learning classifier for four brain tumor classes using transfer learning on 7,000+ MRI images with stratified train/validation/test splits to prevent leakage. Achieved 99.85% test accuracy on a controlled held-out dataset; validated predictions using Grad-CAM for clinical interpretability. Deployed via a Flask-based REST API, integrating the model into a scalable backend inference pipeline.",
+    "techStack": [
+      "Python",
+      "TensorFlow",
+      "Xception",
+      "Grad-CAM",
+      "Flask"
+    ],
+    "metrics": "99.85% test accuracy",
+    "githubURL": "",
+    "liveURL": "",
+    "featured": false,
+    "date": "2024-11"
+  },
+  {
+    "id": "spillvision",
+    "title": "SpillVision",
+    "category": "Machine Learning / Remote Sensing",
+    "description": "Satellite oil spill detection system using DINOv2 Vision Transformer on Sentinel-1 SAR imagery.",
+    "longDescription": "Fine-tuned Meta AI's DINOv2 Vision Transformer on Sentinel-1 SAR imagery to enable all-weather, day-and-night marine spill detection where optical surveillance fails. Designed a composite Focal-Tversky-Dice loss to handle severe class imbalance with 8 augmentation strategies including CutMix and MixUp for generalization. Achieved 99.05% accuracy, 98.24% recall, and F1 of 0.9859 on 1,684 held-out SAR images — outperforming all CNN baselines by 8.5pp in recall.",
+    "techStack": [
+      "Python",
+      "PyTorch",
+      "DINOv2",
+      "SAR Imagery"
+    ],
+    "metrics": "99.05% accuracy, 98.24% recall, F1 0.9859",
+    "achievements": [
+      "99.05% accuracy with 98.24% recall and F1 of 0.9859",
+      "Less than 2% false-alarm rate across 5-fold cross-validation",
+      "Outperformed all CNN baselines by 8.5pp in recall",
+      "Optimized training using CLAHE, RandAugment, GridShuffle, EMA/SWA, CutMix, MixUp"
+    ],
+    "githubURL": "",
+    "liveURL": "",
+    "featured": false,
+    "date": "2024-06"
+  },
+  {
+    "id": "buyapixel",
+    "title": "Buy a Pixel",
+    "category": "Full-Stack Development",
+    "description": "Digital ownership platform with Supabase Auth, OAuth providers, and PostgreSQL-backed RBAC.",
+    "longDescription": "Built a full-stack web platform with Supabase Auth, OAuth providers, and PostgreSQL-backed RBAC for secure, role-based access. Designed API architecture supporting payment-driven workflows and modular backend system design.",
+    "techStack": [
+      "Supabase",
+      "React.js",
+      "PostgreSQL"
+    ],
+    "metrics": "",
+    "githubURL": "",
+    "liveURL": "https://buyapixel.onrender.com",
+    "featured": false,
+    "date": "2024-09"
+  },
+  {
+    "id": "quiz-webapp",
+    "title": "Full-Stack Quiz Web App",
+    "category": "Full-Stack Development",
+    "description": "Comprehensive quiz platform using the MERN stack with real-time scoring, timer functionality, and analytics dashboard.",
+    "longDescription": "Developed a comprehensive quiz platform using the MERN stack with real-time scoring, timer functionality, and analytics dashboard. Implemented complete RESTful API with MCQ support, local storage integration for persistent sessions, and responsive user experience.",
+    "techStack": [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "REST APIs"
+    ],
+    "metrics": "",
+    "achievements": [
+      "Complete MERN stack implementation with RESTful API",
+      "Real-time scoring system with MCQ support",
+      "Timer functionality for timed assessments",
+      "Analytics dashboard with results visualization",
+      "Local storage integration for persistent sessions"
+    ],
+    "githubURL": "https://github.com/csharikrishna",
+    "liveURL": "https://quiz-ripple-theta.vercel.app/",
+    "featured": false,
+    "date": "2024-03"
+  },
+  {
+    "id": "lpg-safety",
+    "title": "Gas Booking Alert & LPG Leakage Detection",
+    "category": "IoT Development",
+    "description": "IoT-based safety system using Raspberry Pi Pico for detecting LPG leaks and managing gas refill bookings.",
+    "longDescription": "Created an IoT-based safety system using Raspberry Pi Pico for detecting LPG leaks and managing gas refill bookings. Implemented real-time detection, automated booking based on usage patterns, and mobile notification system for safety alerts.",
+    "techStack": [
+      "Raspberry Pi Pico",
+      "IoT",
+      "Python",
+      "MQTT",
+      "Sensors"
+    ],
+    "metrics": "",
+    "achievements": [
+      "Real-time LPG leakage detection and alert system",
+      "Automated gas refill booking based on usage patterns",
+      "Mobile notification system for safety alerts",
+      "Gas usage monitoring and tracking"
+    ],
+    "githubURL": "https://github.com/csharikrishna/lpg-leakage-detection",
+    "liveURL": "",
+    "featured": false,
+    "date": "2023-12"
+  }
+]

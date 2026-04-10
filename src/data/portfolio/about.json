@@ -1,0 +1,49 @@
+{
+  "bio": "Computer Science undergraduate specializing in AI systems and backend engineering, with experience building low-latency RAG pipelines, scalable APIs, and production deep learning systems. Delivered sub-second retrieval, high-precision classification, and end-to-end deployments; strong in Python, Java, and Node.js for scalable, real-world applications.",
+  "biography": {
+    "intro": "I'm a Computer Science student at Vellore Institute of Technology with a strong passion for creating innovative technological solutions. My journey in tech has been driven by curiosity and a desire to solve real-world problems through code.",
+    "fullstack": "With expertise in full-stack development using the MERN stack (MongoDB, Express, React, Node.js), I've built multiple web applications from concept to deployment. My technical skills span across Java, Python, JavaScript, and modern web technologies, enabling me to tackle diverse challenges in software development.",
+    "aiml": "Beyond web development, I'm deeply interested in Artificial Intelligence and Machine Learning, focusing on computer vision, NLP, and large language models.",
+    "aiFocus": [
+      {
+        "title": "Computer Vision",
+        "description": "Oil spill detection and brain tumor classification using deep learning models"
+      },
+      {
+        "title": "Natural Language Processing",
+        "description": "Text analysis and language understanding"
+      },
+      {
+        "title": "Large Language Models",
+        "description": "Working with LLMs through prompt engineering and IBM WatsonX"
+      },
+      {
+        "title": "IoT Development",
+        "description": "Safety systems using Raspberry Pi and embedded systems"
+      }
+    ],
+    "leadership": "In addition to technical work, I've demonstrated leadership as a Content Team Lead at V Ideas, where I led a 10-member team and increased Instagram engagement by 35% through data-driven strategies. I'm always eager to collaborate on innovative projects and contribute to meaningful technological advancements."
+  },
+  "facts": [
+    {
+      "label": "Location",
+      "value": "Andhra Pradesh, India"
+    },
+    {
+      "label": "Email",
+      "value": "csharikrishna1806@gmail.com"
+    },
+    {
+      "label": "Currently",
+      "value": "B.Tech CS Student at VIT-AP"
+    },
+    {
+      "label": "Open To",
+      "value": "Internships & Full-time Roles"
+    },
+    {
+      "label": "Languages",
+      "value": "English, Telugu, Tamil"
+    }
+  ]
+}

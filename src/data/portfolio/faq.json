@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What kind of roles are you looking for?",
+    "answer": "I'm looking for backend engineering and AI/ML roles where I can work on scalable systems, RAG pipelines, and production deep learning. Internships and full-time positions both interest me."
+  },
+  {
+    "question": "What's your preferred tech stack?",
+    "answer": "Python and Node.js for backend, PostgreSQL and MongoDB for databases, PyTorch and TensorFlow for ML. I also work with React.js on the frontend and have experience with Docker for containerization."
+  },
+  {
+    "question": "Are you open to remote work?",
+    "answer": "Yes, I'm open to both remote and on-site roles. I've worked independently on complex projects like CortexRAG and SpillVision, so I'm comfortable with async collaboration."
+  },
+  {
+    "question": "Do you contribute to open source?",
+    "answer": "My projects like CortexRAG are open source on GitHub. I believe in building in public and sharing knowledge with the community."
+  },
+  {
+    "question": "What sets you apart from other candidates?",
+    "answer": "I focus on production-grade systems, not just prototypes. My projects achieve real metrics — sub-second RAG latency, 99%+ classification accuracy — and I care deeply about system design and scalability."
+  }
+]

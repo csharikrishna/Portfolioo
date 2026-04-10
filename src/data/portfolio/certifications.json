@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Oracle AI Vector Search Certified Professional",
+    "issuer": "Oracle University",
+    "date": "July 2025",
+    "validity": "Valid until July 2027",
+    "description": "Recognized by Oracle Corporation as Oracle Certified Professional in AI Vector Search technologies",
+    "type": "Professional Certification",
+    "credentialURL": "https://drive.google.com/file/d/17p4HbbihA4V7Oah5Emwi1JKzBG-u4qOr/view?usp=sharing"
+  },
+  {
+    "name": "MongoDB Associate Database Administrator",
+    "issuer": "MongoDB University",
+    "date": "2024",
+    "validity": null,
+    "description": "Professional certification in MongoDB database administration and management",
+    "type": "Database Certification",
+    "credentialURL": "https://drive.google.com/file/d/17IWzm32bP5AzxWvTzN_mcPBmAoG3D-ek/view?usp=sharing"
+  },
+  {
+    "name": "Generative AI Using IBM WatsonX",
+    "issuer": "IBM",
+    "date": "2024",
+    "validity": null,
+    "description": "Advanced certification in Generative AI technologies and IBM WatsonX platform",
+    "type": "AI Certification",
+    "credentialURL": "https://drive.google.com/file/d/1-sZCeCcGFIDLJzSR06gc4F2CIQVXz1vx/view?usp=sharing"
+  },
+  {
+    "name": "MERN Full Stack Certification Program",
+    "issuer": "Ethnus",
+    "date": "2024",
+    "validity": null,
+    "description": "Comprehensive full-stack development certification covering MongoDB, Express, React, and Node.js",
+    "type": "Technical Certification",
+    "credentialURL": "https://drive.google.com/file/d/1SGKJZVC4MlLdakN8x4Dyrilw1OGwLSMX/view?usp=sharing"
+  },
+  {
+    "name": "V-IDEAS Lead – Certificate of Appreciation",
+    "issuer": "CSI Chapter, VIT-AP University",
+    "date": "Sept 2024 – June 2025",
+    "validity": null,
+    "description": "Certificate of Appreciation for successfully completing leadership role at CSI Chapter VIT-AP",
+    "type": "Leadership Recognition",
+    "credentialURL": "https://drive.google.com/file/d/1Y5Cf7BgMmJuzf_6osp-iDqwVWBmVtUR0/view?usp=sharing"
+  }
+]

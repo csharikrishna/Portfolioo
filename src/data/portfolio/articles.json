@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Building Low-Latency RAG Pipelines at Scale",
+    "excerpt": "How I designed CortexRAG to route queries across difficulty tiers, achieving sub-second latency while reducing unnecessary compute by 60%.",
+    "date": "Mar 2025",
+    "readingTime": "8 min read",
+    "tags": [
+      "RAG",
+      "System Design",
+      "Python"
+    ],
+    "url": ""
+  },
+  {
+    "title": "Transfer Learning for Medical Imaging: Lessons from 99.85% Accuracy",
+    "excerpt": "A deep dive into preventing data leakage, choosing the right backbone, and using Grad-CAM for clinical interpretability in brain tumor classification.",
+    "date": "Jan 2025",
+    "readingTime": "12 min read",
+    "tags": [
+      "Deep Learning",
+      "Computer Vision",
+      "TensorFlow"
+    ],
+    "url": ""
+  },
+  {
+    "title": "Vector Databases vs Graph Databases: When to Use What",
+    "excerpt": "Comparing Weaviate and Neo4j for different retrieval patterns — from semantic search to multi-hop reasoning across connected documents.",
+    "date": "Dec 2024",
+    "readingTime": "6 min read",
+    "tags": [
+      "Databases",
+      "Vector Search",
+      "Architecture"
+    ],
+    "url": ""
+  },
+  {
+    "title": "SAR Imagery and Oil Spill Detection with Vision Transformers",
+    "excerpt": "How DINOv2 fine-tuning on Sentinel-1 satellite data outperformed CNN baselines by 8.5pp in recall for all-weather marine surveillance.",
+    "date": "Nov 2024",
+    "readingTime": "10 min read",
+    "tags": [
+      "Computer Vision",
+      "PyTorch",
+      "Remote Sensing"
+    ],
+    "url": ""
+  }
+]

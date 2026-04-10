@@ -1,0 +1,33 @@
+# Googlebot gets priority
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Social media crawlers
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# All other bots
+User-agent: *
+Allow: /
+Crawl-delay: 2
+
+# Disallow private paths (if any)
+Disallow: /admin/
+Disallow: /internal/
+Disallow: /.env
+Disallow: /node_modules/
+
+# Sitemap
+Sitemap: https://csharikrishna.vercel.app/sitemap.xml

@@ -1,0 +1,60 @@
+{
+  "languages": [
+    "Python",
+    "Java",
+    "JavaScript",
+    "SQL",
+    "HTML",
+    "CSS"
+  ],
+  "frameworks": [
+    "Node.js",
+    "Express.js",
+    "React.js",
+    "Flask"
+  ],
+  "tools": [
+    "Docker",
+    "Git",
+    "GitHub",
+    "Linux",
+    "Postman",
+    "Figma",
+    "IBM WatsonX AI"
+  ],
+  "databases": [
+    "PostgreSQL",
+    "MongoDB",
+    "MySQL",
+    "Supabase",
+    "Neo4j",
+    "Weaviate",
+    "MongoDB Atlas"
+  ],
+  "aiMl": [
+    "PyTorch",
+    "TensorFlow",
+    "RAG",
+    "CNNs",
+    "Vector Search",
+    "Transfer Learning",
+    "Deep Learning",
+    "NLP",
+    "Prompt Engineering",
+    "Large Language Models",
+    "Computer Vision",
+    "Grad-CAM",
+    "DINOv2"
+  ],
+  "softSkills": [
+    "Problem Solving",
+    "Teamwork",
+    "Communication",
+    "Leadership"
+  ],
+  "other": [
+    "REST APIs",
+    "Authentication",
+    "System Design"
+  ]
+}
