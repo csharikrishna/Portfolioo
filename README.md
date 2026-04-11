@@ -44,6 +44,61 @@ If this value is not provided, the contact form falls back to opening the user m
 - Run build: npm run build
 - Run E2E tests: npx playwright test
 
+## Deploy On Vercel
+
+This project is a Vite SPA and can be deployed directly to Vercel.
+
+### Prerequisite
+
+- Ensure [vercel.json](vercel.json) is present (already included in this repository).
+
+### Option 1: Deploy From Vercel Dashboard (recommended)
+
+1. Push this repository to GitHub.
+2. Open Vercel and click Add New... then Project.
+3. Import your GitHub repository.
+4. Keep the detected framework as Vite.
+5. Confirm these build settings:
+	- Install Command: npm install
+	- Build Command: npm run build
+	- Output Directory: dist
+6. Add environment variable if needed:
+	- VITE_CONTACT_ENDPOINT
+7. Click Deploy.
+
+### Option 2: Deploy Using Vercel CLI
+
+1. Install Vercel CLI:
+
+```bash
+npm i -g vercel
+```
+
+2. Deploy:
+
+```bash
+vercel
+```
+
+3. For production deployment:
+
+```bash
+vercel --prod
+```
+
+### SPA Routing Notes
+
+- Client-side routes are handled by rewrite rules in [vercel.json](vercel.json), which route all paths to index.html.
+- This is required for React Router deep links to work in production.
+
+### Validate Before Deploy
+
+```bash
+npm run build
+```
+
+If the build succeeds, your Vercel deployment is ready.
+
 ## Deploy On Render
 
 This project is a Vite SPA and is best deployed as a static site on Render.
