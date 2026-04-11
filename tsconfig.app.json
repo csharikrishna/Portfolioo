@@ -26,7 +26,8 @@
     "strictNullChecks": true,
     "target": "ES2020",
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "three"
     ],
     "useDefineForClassFields": true
   },

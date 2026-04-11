@@ -4,6 +4,7 @@ import useMagneticEffect from '@/hooks/useMagneticEffect';
 import useParallax from '@/hooks/useParallax';
 import ParticleConstellation from '@/components/ui-custom/ParticleConstellation';
 import AnimatedCounter from '@/components/ui-custom/AnimatedCounter';
+import HeroTextureBlob from '@/components/ui-custom/HeroTextureBlob';
 import { portfolio as portfolioData } from '@/data/portfolio';
 
 const ROLES = ['AI Systems Engineer', 'Backend Developer', 'Full-Stack Builder'];
@@ -156,6 +157,14 @@ const Hero = () => {
         }}
       >
         01
+      </div>
+
+      <div
+        className="hidden xl:block absolute right-[clamp(30px,3vw,64px)] top-[56%] -translate-y-1/2 z-[1]"
+        style={{ width: 'clamp(220px, 20vw, 310px)', height: 'clamp(250px, 28vw, 360px)' }}
+        aria-hidden="true"
+      >
+        <HeroTextureBlob />
       </div>
 
       <div

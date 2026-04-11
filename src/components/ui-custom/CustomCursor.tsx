@@ -1,212 +1,247 @@
 import { useEffect, useRef } from 'react';
 
-// All mutable cursor state lives here — no React re-renders
 type CursorState = {
   hovering: boolean;
   clicking: boolean;
   visible: boolean;
 };
 
+const INTERACTIVE_SELECTOR = [
+  'a',
+  'button',
+  '[role="button"]',
+  '[role="link"]',
+  '[tabindex]:not([tabindex="-1"])',
+  '.cursor-pointer',
+  '.project-card-glass',
+  '.skill-pill',
+  'input',
+  'textarea',
+  'select',
+  'summary',
+  'label',
+].join(', ');
+
 const CustomCursor = () => {
-  const dotRef  = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
-  const mouse   = useRef({ x: -100, y: -100 });
-  const ring    = useRef({ x: -100, y: -100 });
-  const scale   = useRef(1); // lerped separately to avoid transform conflict
-  const cur     = useRef<CursorState>({ hovering: false, clicking: false, visible: false });
+
+  const pointer = useRef({ x: -100, y: -100 });
+  const dotPos = useRef({ x: -100, y: -100 });
+  const ringPos = useRef({ x: -100, y: -100 });
+
+  const dotScale = useRef(1);
+  const ringScale = useRef(1);
+  const dotTargetScale = useRef(1);
+  const ringTargetScale = useRef(1);
+
+  const state = useRef<CursorState>({ hovering: false, clicking: false, visible: false });
 
   useEffect(() => {
-    // Guard: touch devices and reduced-motion
     if (window.matchMedia('(pointer: coarse)').matches) return;
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const dot  = dotRef.current;
-    const ring = ringRef.current; // shadow the outer ref here for local brevity
+    const dot = dotRef.current;
+    const ring = ringRef.current;
     if (!dot || !ring) return;
 
-    // ── DOM updaters (called directly, no setState) ──────────────────────────
+    const lerp = (from: number, to: number, amount: number) => from + (to - from) * amount;
 
-    const syncDot = () => {
-      const { hovering, visible } = cur.current;
-      dot.style.opacity = visible ? '1' : '0';
-      dot.style.width   = hovering ? '0px' : '8px';
-      dot.style.height  = hovering ? '0px' : '8px';
-    };
+    const getInteractiveHost = (target: EventTarget | null): HTMLElement | null => {
+      const element = target instanceof Element ? target : null;
+      if (!element) return null;
 
-    const syncRing = () => {
-      const { hovering, visible } = cur.current;
-      ring.style.opacity     = visible ? '1' : '0';
-      ring.style.width       = hovering ? '56px' : '36px';
-      ring.style.height      = hovering ? '56px' : '36px';
-      ring.style.borderColor = `hsl(var(--accent-primary) / ${hovering ? 0.6 : 0.35})`;
-      ring.style.background  = hovering ? 'hsl(var(--accent-primary) / 0.08)' : 'transparent';
-    };
+      const matched = element.closest(INTERACTIVE_SELECTOR);
+      if (matched instanceof HTMLElement) return matched;
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
-
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
-    const isInteractive = (el: EventTarget | null): boolean =>
-      !!(el as HTMLElement | null)?.closest(
-        'a, button, [role="button"], .project-card-glass, .skill-pill, input, textarea, select'
-      );
-
-    // ── Event handlers ────────────────────────────────────────────────────────
-
-    const onMove = (e: MouseEvent) => {
-      mouse.current = { x: e.clientX, y: e.clientY };
-      // Dot follows cursor instantly (no lerp)
-      dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-      if (!cur.current.visible) {
-        cur.current.visible = true;
-        syncDot();
-        syncRing();
+      let cursorProbe: Element | null = element;
+      while (cursorProbe && cursorProbe !== document.body) {
+        const cursor = window.getComputedStyle(cursorProbe).cursor;
+        if (cursor === 'pointer') {
+          return cursorProbe as HTMLElement;
+        }
+        cursorProbe = cursorProbe.parentElement;
       }
+
+      return null;
     };
 
-    const onDown = () => { cur.current.clicking = true;  };
-    const onUp   = () => { cur.current.clicking = false; };
+    const setHoverState = (nextHovering: boolean) => {
+      if (state.current.hovering === nextHovering) return;
+      state.current.hovering = nextHovering;
 
-    const onOver = (e: MouseEvent) => {
-      if (!cur.current.hovering && isInteractive(e.target)) {
-        cur.current.hovering = true;
-        syncDot();
-        syncRing();
-      }
+      ring.style.width = nextHovering ? '46px' : '34px';
+      ring.style.height = nextHovering ? '46px' : '34px';
+      ring.style.borderColor = `hsl(var(--accent-primary) / ${nextHovering ? 0.7 : 0.36})`;
+      ring.style.background = nextHovering
+        ? 'hsl(var(--accent-primary) / 0.11)'
+        : 'hsl(var(--accent-primary) / 0.04)';
+      ring.style.boxShadow = nextHovering
+        ? '0 0 20px hsl(var(--accent-primary) / 0.22), 0 0 0 1px hsl(var(--accent-primary) / 0.16)'
+        : '0 0 10px hsl(var(--accent-primary) / 0.12), 0 0 0 1px hsl(var(--accent-primary) / 0.1)';
+
+      const nextDotScale = nextHovering ? 0.72 : 1;
+      dotTargetScale.current = state.current.clicking ? nextDotScale * 0.84 : nextDotScale;
+      ringTargetScale.current = state.current.clicking
+        ? (nextHovering ? 1.2 : 0.92)
+        : (nextHovering ? 1.34 : 1);
     };
 
-    const onOut = (e: MouseEvent) => {
-      // Only clear hover when LEAVING the interactive zone entirely,
-      // not when crossing into a child element within it.
-      if (cur.current.hovering && isInteractive(e.target) && !isInteractive(e.relatedTarget)) {
-        cur.current.hovering = false;
-        syncDot();
-        syncRing();
-      }
+    const setVisibleState = (nextVisible: boolean) => {
+      if (state.current.visible === nextVisible) return;
+      state.current.visible = nextVisible;
+      dot.style.opacity = nextVisible ? '1' : '0';
+      ring.style.opacity = nextVisible ? '1' : '0';
     };
 
-    const onLeave = () => {
-      cur.current.visible = false;
-      syncDot();
-      syncRing();
+    const setClickState = (nextClicking: boolean) => {
+      if (state.current.clicking === nextClicking) return;
+      state.current.clicking = nextClicking;
+
+      const hoverScale = state.current.hovering ? 0.72 : 1;
+      dotTargetScale.current = nextClicking ? hoverScale * 0.84 : hoverScale;
+      ringTargetScale.current = nextClicking
+        ? (state.current.hovering ? 1.2 : 0.92)
+        : (state.current.hovering ? 1.34 : 1);
     };
 
-    // ── Scroll pause ──────────────────────────────────────────────────────────
+    const handlePointerMove = (event: PointerEvent) => {
+      pointer.current.x = event.clientX;
+      pointer.current.y = event.clientY;
 
-    let isScrolling = false;
-    let scrollTimeout: ReturnType<typeof setTimeout>;
-
-    const onScroll = () => {
-      isScrolling = true;
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => { isScrolling = false; }, 150);
+      setVisibleState(true);
+      setHoverState(Boolean(getInteractiveHost(event.target)));
     };
 
-    // ── Event wiring ──────────────────────────────────────────────────────────
-
-    document.addEventListener('mousemove',  onMove);
-    document.addEventListener('mousedown',  onDown);
-    document.addEventListener('mouseup',    onUp);
-    document.addEventListener('mouseover',  onOver);
-    document.addEventListener('mouseout',   onOut);
-    // mouseenter doesn't bubble — use documentElement for the leave/enter pair
-    document.documentElement.addEventListener('mouseleave', onLeave);
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    // ── RAF loop ──────────────────────────────────────────────────────────────
-
-    let raf: number;
-    const mousePos  = mouse; // alias to avoid shadowing
-    const ringPos   = { x: -100, y: -100 };
-
-    const loop = () => {
-      if (!isScrolling) {
-        // Lerp ring position
-        ringPos.x = lerp(ringPos.x, mousePos.current.x, prefersReduced ? 1 : 0.15);
-        ringPos.y = lerp(ringPos.y, mousePos.current.y, prefersReduced ? 1 : 0.15);
-
-        // Lerp scale — resolves the clicking transform conflict
-        const targetScale = cur.current.clicking ? 0.85 : 1;
-        scale.current = lerp(scale.current, targetScale, 0.2);
-
-        ring.style.transform =
-          `translate(${ringPos.x}px, ${ringPos.y}px) translate(-50%, -50%) scale(${scale.current.toFixed(4)})`;
-      }
-      raf = requestAnimationFrame(loop);
+    const handlePointerDown = (event: PointerEvent) => {
+      setVisibleState(true);
+      setHoverState(Boolean(getInteractiveHost(event.target)));
+      setClickState(true);
     };
 
-    raf = requestAnimationFrame(loop);
+    const handlePointerUp = (event: PointerEvent) => {
+      setHoverState(Boolean(getInteractiveHost(event.target)));
+      setClickState(false);
+    };
 
-    // ── Hide default cursor ───────────────────────────────────────────────────
+    const handlePointerLeave = () => {
+      setVisibleState(false);
+      setClickState(false);
+    };
 
-    document.documentElement.style.cursor = 'none';
+    const handlePointerEnter = () => {
+      if (pointer.current.x < 0 || pointer.current.y < 0) return;
+      setVisibleState(true);
+    };
+
+    const handleWindowBlur = () => {
+      setVisibleState(false);
+      setClickState(false);
+    };
+
+    document.addEventListener('pointermove', handlePointerMove, { passive: true });
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('pointerup', handlePointerUp);
+    document.addEventListener('pointercancel', handlePointerUp);
+    document.documentElement.addEventListener('pointerleave', handlePointerLeave);
+    document.documentElement.addEventListener('pointerenter', handlePointerEnter);
+    window.addEventListener('blur', handleWindowBlur);
+
     const styleEl = document.createElement('style');
     styleEl.id = 'custom-cursor-hide';
     styleEl.textContent = '*, *::before, *::after { cursor: none !important; }';
     document.head.appendChild(styleEl);
 
-    // ── Cleanup ───────────────────────────────────────────────────────────────
+    let rafId = 0;
+    let lastHoverSampleAt = 0;
+
+    const animate = (now: number) => {
+      const fast = prefersReduced ? 1 : 0.45;
+      const smooth = prefersReduced ? 1 : 0.16;
+      const scaleLerp = prefersReduced ? 1 : 0.22;
+
+      dotPos.current.x = lerp(dotPos.current.x, pointer.current.x, fast);
+      dotPos.current.y = lerp(dotPos.current.y, pointer.current.y, fast);
+      ringPos.current.x = lerp(ringPos.current.x, pointer.current.x, smooth);
+      ringPos.current.y = lerp(ringPos.current.y, pointer.current.y, smooth);
+
+      dotScale.current = lerp(dotScale.current, dotTargetScale.current, scaleLerp);
+      ringScale.current = lerp(ringScale.current, ringTargetScale.current, scaleLerp);
+
+      dot.style.transform = `translate(${dotPos.current.x}px, ${dotPos.current.y}px) translate(-50%, -50%) scale(${dotScale.current.toFixed(4)})`;
+      ring.style.transform = `translate(${ringPos.current.x}px, ${ringPos.current.y}px) translate(-50%, -50%) scale(${ringScale.current.toFixed(4)})`;
+
+      if (state.current.visible && now - lastHoverSampleAt > 90) {
+        lastHoverSampleAt = now;
+        const target = document.elementFromPoint(pointer.current.x, pointer.current.y);
+        setHoverState(Boolean(getInteractiveHost(target)));
+      }
+
+      rafId = requestAnimationFrame(animate);
+    };
+
+    rafId = requestAnimationFrame(animate);
 
     return () => {
-      document.removeEventListener('mousemove',  onMove);
-      document.removeEventListener('mousedown',  onDown);
-      document.removeEventListener('mouseup',    onUp);
-      document.removeEventListener('mouseover',  onOver);
-      document.removeEventListener('mouseout',   onOut);
-      document.documentElement.removeEventListener('mouseleave', onLeave);
-      window.removeEventListener('scroll', onScroll);
-      clearTimeout(scrollTimeout);
-      cancelAnimationFrame(raf);
-      document.documentElement.style.cursor = '';
+      document.removeEventListener('pointermove', handlePointerMove);
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('pointerup', handlePointerUp);
+      document.removeEventListener('pointercancel', handlePointerUp);
+      document.documentElement.removeEventListener('pointerleave', handlePointerLeave);
+      document.documentElement.removeEventListener('pointerenter', handlePointerEnter);
+      window.removeEventListener('blur', handleWindowBlur);
+      cancelAnimationFrame(rafId);
       document.getElementById('custom-cursor-hide')?.remove();
     };
-  }, []); // ← stable: no deps, no re-registration
+  }, []);
 
-  // SSR guard — runs only on client
   if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
     return null;
   }
 
   return (
     <>
-      {/* Dot — initial state matches ref defaults (invisible, 8px) */}
       <div
         ref={dotRef}
-        className="custom-cursor-dot"
         style={{
           position: 'fixed',
-          top: 0, left: 0,
-          width: '8px', height: '8px',
+          top: 0,
+          left: 0,
+          width: '8px',
+          height: '8px',
           borderRadius: '50%',
           background: 'hsl(var(--accent-primary))',
+          boxShadow: '0 0 8px hsl(var(--accent-primary) / 0.45)',
           pointerEvents: 'none',
           zIndex: 99999,
-          opacity: 0, // syncDot() reveals it on first mousemove
-          transition: 'width 250ms ease, height 250ms ease, opacity 200ms ease',
+          opacity: 0,
+          transition: 'opacity 180ms ease',
           willChange: 'transform',
         }}
       />
-      {/* Ring — transform driven by RAF, scale composed inline */}
+
       <div
         ref={ringRef}
-        className="custom-cursor-ring"
         style={{
           position: 'fixed',
-          top: 0, left: 0,
-          width: '36px', height: '36px',
+          top: 0,
+          left: 0,
+          width: '34px',
+          height: '34px',
           borderRadius: '50%',
-          border: '1.5px solid hsl(var(--accent-primary) / 0.35)',
-          background: 'transparent',
+          border: '1.5px solid hsl(var(--accent-primary) / 0.36)',
+          background: 'hsl(var(--accent-primary) / 0.04)',
+          boxShadow: '0 0 10px hsl(var(--accent-primary) / 0.12), 0 0 0 1px hsl(var(--accent-primary) / 0.1)',
           pointerEvents: 'none',
           zIndex: 99998,
           opacity: 0,
-          // transform is NOT listed here — it's driven entirely by RAF
           transition: [
-            'width 300ms cubic-bezier(0.22,1,0.36,1)',
-            'height 300ms cubic-bezier(0.22,1,0.36,1)',
-            'border-color 300ms ease',
-            'background 300ms ease',
-            'opacity 200ms ease',
+            'width 220ms cubic-bezier(0.22,1,0.36,1)',
+            'height 220ms cubic-bezier(0.22,1,0.36,1)',
+            'border-color 220ms ease',
+            'background 220ms ease',
+            'box-shadow 220ms ease',
+            'opacity 180ms ease',
           ].join(', '),
           willChange: 'transform',
         }}

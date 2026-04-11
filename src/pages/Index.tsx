@@ -10,7 +10,6 @@ import Achievements from '@/components/sections/Achievements';
 import Blog from '@/components/sections/Blog';
 import FAQ from '@/components/sections/FAQ';
 import Contact from '@/components/sections/Contact';
-import CustomCursor from '@/components/ui-custom/CustomCursor';
 import { portfolio as portfolioData } from '@/data/portfolio';
 import { safeJsonLd } from '@/lib/safeJsonLd';
 
@@ -160,7 +159,6 @@ const Index = () => {
         Skip to content
       </a>
 
-      <CustomCursor />
       <Nav />
 
       {/* Vertical sienna rule - desktop only */}
