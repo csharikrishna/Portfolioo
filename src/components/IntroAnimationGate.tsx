@@ -291,8 +291,8 @@ const GLOBAL_CSS = `
 }
 /* Children reveal */
 @keyframes _ig_mainReveal{
-  from{opacity:0;filter:blur(6px)}
-  to  {opacity:1;filter:none}
+  from{opacity:0}
+  to  {opacity:1}
 }
 `;
 
@@ -657,7 +657,11 @@ export default function IntroAnimationGate({
   }, [phase]);
 
   /* ── Render ── */
-  if (phase === "done" || shouldSkip || !webglOk) {
+  if (shouldSkip || !webglOk) {
+    return <>{children}</>;
+  }
+
+  if (phase === "done") {
     return (
       <div style={{
         animation: "_ig_mainReveal 420ms cubic-bezier(.16,1,.3,1) both",
