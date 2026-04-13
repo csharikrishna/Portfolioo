@@ -443,8 +443,13 @@
 
 /* ─── Content visibility for below-fold performance ────────────────────────── */
 .content-section {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 600px;
+  scroll-margin-top: 84px;
+}
+
+@media (max-width: 920px) {
+  .content-section {
+    scroll-margin-top: 20px;
+  }
 }
 
 /* ─── Mobile safe area ─────────────────────────────────────────────────────── */

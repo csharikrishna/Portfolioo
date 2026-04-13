@@ -14,7 +14,7 @@ const MOBILE_NAV_LINKS = [
   { id: 'about',    label: 'About',    icon: User },
   { id: 'projects', label: 'Projects', icon: Code2 },
   { id: 'skills',   label: 'Skills',   icon: BookOpen },
-  { id: 'education',label: 'Edu',      icon: BookOpen },
+  { id: 'blog',     label: 'Blog',     icon: BookOpen },
   { id: 'contact',  label: 'Contact',  icon: Mail },
 ];
 
@@ -118,16 +118,23 @@ const Nav = () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll(); // Sync initial state immediately
     return () => window.removeEventListener('scroll', onScroll);
-  }, [isMobile]);
+  }, []);
 
   // FIX 4: Different offset for mobile (nav is at BOTTOM, no top offset needed)
   const scrollTo = useCallback((id: string) => {
+    if (id === 'hero') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     const el = document.getElementById(id);
     if (!el) return;
-    const offset = isMobile ? 20 : -80;
-    const y = el.getBoundingClientRect().top + window.scrollY + offset;
-    window.scrollTo({ top: y, behavior: 'smooth' });
-  }, [isMobile]);
+
+    el.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }, []);
 
   const handleThemeToggle = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
