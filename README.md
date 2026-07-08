@@ -1,6 +1,13 @@
-# Exact Pixel Perfect
+# Hari Krishna Portfolio 🚀
 
-Personal portfolio project built with React, Vite, Tailwind CSS, and TypeScript.
+A sleek, modern, and highly interactive personal portfolio built with cutting-edge web technologies. Designed with a focus on performance, dynamic animations, and responsive pixel-perfect layouts.
+
+## 🛠️ Tech Stack
+
+- **Framework**: React + Vite
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript
+- **Testing**: Vitest + Playwright
 
 ## Setup
 
@@ -10,7 +17,7 @@ Personal portfolio project built with React, Vite, Tailwind CSS, and TypeScript.
 npm install
 ```
 
-1. Start development server:
+2. Start development server:
 
 ```bash
 npm run dev
@@ -39,10 +46,10 @@ If this value is not provided, the contact form falls back to opening the user m
 
 ## Production Checklist
 
-- Run lint: npm run lint
-- Run unit tests: npm run test
-- Run build: npm run build
-- Run E2E tests: npx playwright test
+- Run lint: `npm run lint`
+- Run unit tests: `npm run test`
+- Run build: `npm run build`
+- Run E2E tests: `npx playwright test` (Requires running `npx playwright install` first)
 
 ## Deploy On Vercel
 

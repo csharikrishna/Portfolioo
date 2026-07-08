@@ -98,9 +98,11 @@ function drawParticle(ctx: CanvasRenderingContext2D, p: Particle) {
       for (let i = 0; i < 8; i++) {
         const r = i % 2 === 0 ? s * 0.5 : s * 0.22;
         const a = (i * Math.PI) / 4 - Math.PI / 2;
-        i === 0
-          ? ctx.moveTo(r * Math.cos(a), r * Math.sin(a))
-          : ctx.lineTo(r * Math.cos(a), r * Math.sin(a));
+        if (i === 0) {
+          ctx.moveTo(r * Math.cos(a), r * Math.sin(a));
+        } else {
+          ctx.lineTo(r * Math.cos(a), r * Math.sin(a));
+        }
       }
       ctx.closePath();
       ctx.fill();

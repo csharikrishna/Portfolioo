@@ -474,7 +474,8 @@ export default function IntroAnimationGate({
   }, [shouldSkip, phase]);
 
   useEffect(() => {
-    return () => { timersRef.current.forEach(id => window.clearTimeout(id)); };
+    const timers = timersRef.current;
+    return () => { timers.forEach(id => window.clearTimeout(id)); };
   }, []);
 
   /* ── Three.js scene ── */

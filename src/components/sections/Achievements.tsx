@@ -64,8 +64,8 @@ const Achievements = () => {
                 <p className="font-mono-body text-text-secondary text-[13px] mt-1 leading-[1.75]">
                   {ach.description}
                 </p>
-                {(ach as any).link && (
-                  <a href={(ach as any).link} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 font-mono-body text-accent-alt text-[12px] hover:underline">
+                {ach.link && (
+                  <a href={ach.link} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 font-mono-body text-accent-alt text-[12px] hover:underline">
                     View Certificate ↗
                   </a>
                 )}

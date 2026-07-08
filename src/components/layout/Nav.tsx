@@ -118,7 +118,7 @@ const Nav = () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll(); // Sync initial state immediately
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [isMobile]);
 
   // FIX 4: Different offset for mobile (nav is at BOTTOM, no top offset needed)
   const scrollTo = useCallback((id: string) => {

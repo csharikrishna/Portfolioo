@@ -85,14 +85,14 @@ const Education = () => {
                   >
                     <td className="py-3 pr-4">
                       <span className="font-mono-body text-text-primary text-[13px] group-hover:text-accent-primary transition-colors block">{cert.name}</span>
-                      {(cert as any).type && <span className="font-mono-label text-[10px] text-text-muted opacity-70">{(cert as any).type}</span>}
+                      {cert.type && <span className="font-mono-label text-[10px] text-text-muted opacity-70">{cert.type}</span>}
                     </td>
                     <td className="font-mono-body text-text-secondary text-[13px] py-3 pr-4">
                       {cert.issuer}
                     </td>
                     <td className="py-3 pr-4">
-                      <span className="font-mono-body text-text-secondary text-[13px] block">{(cert as any).date || '—'}</span>
-                      {(cert as any).validity && <span className="font-mono-label text-[10px] text-text-muted opacity-70">{(cert as any).validity}</span>}
+                      <span className="font-mono-body text-text-secondary text-[13px] block">{cert.date || '—'}</span>
+                      {cert.validity && <span className="font-mono-label text-[10px] text-text-muted opacity-70">{cert.validity}</span>}
                     </td>
                     <td className="py-3">
                       {cert.credentialURL ? (
@@ -117,16 +117,16 @@ const Education = () => {
                   <h4 className="font-mono-body text-text-primary text-[13px] font-semibold">
                     {cert.name}
                   </h4>
-                  {(cert as any).type && (
+                  {cert.type && (
                     <span className="font-mono-label text-[10px] bg-bg-inset text-text-muted px-2 py-0.5 flex-shrink-0" style={{ borderRadius: '3px' }}>
-                      {(cert as any).type}
+                      {cert.type}
                     </span>
                   )}
                 </div>
                 <p className="font-mono-label text-[11px] text-text-muted mb-1">{cert.issuer}</p>
-                {(cert as any).date && (
+                {cert.date && (
                   <p className="font-mono-label text-[10px] text-text-muted mb-2 opacity-70">
-                    {(cert as any).date}{(cert as any).validity ? ` · ${(cert as any).validity}` : ''}
+                    {cert.date}{cert.validity ? ` · ${cert.validity}` : ''}
                   </p>
                 )}
                 {cert.credentialURL ? (
